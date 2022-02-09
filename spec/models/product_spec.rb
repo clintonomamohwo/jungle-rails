@@ -1,61 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
+  let(:category) {Category.new(:name => 'Toys')}
+  subject {described_class.new(:name => 'Pokemon', :price => 300, :quantity => 30, :category => category)}  
+  
   describe 'Validations' do
-    it "is valid" do
-      @product = Product.new
-      @cat = Category.new
-      @cat.name = 'Test'
-      @product.name = 'Test' # invalid state
-      @product.price_cents = 12311
-      @product.quantity = 3
-      @product.category = @cat
-      expect(@product.valid?).to be true
+  
+    
+    it 'saves successfully with all four fields set and belong to a category' do
+      subject.valid?
+      expect(subject.errors).to be_empty
+      assc = described_class.reflect_on_association(:category)
+      expect(assc.macro).to eq :belongs_to
     end
 
-    it "name presence" do
-      @product = Product.new
-      @product.name = nil # invalid state
-      @product.valid?
-      expect(@product.errors[:name]).to  include("can't be blank")
-
-      @product.name = 'test' # valid state
-      @product.valid? 
-      expect(@product.errors[:name]).not_to  include("can't be blank")
+    it 'fails to save when name is not set' do
+      subject.name = nil
+      subject.valid?
+      expect(subject.errors).not_to be_empty
+    end
+    
+    it 'fails to save when price is not set' do
+      subject.price_cents = nil
+      subject.valid?
+      expect(subject.errors).not_to be_empty
     end
 
-    it "price_cents presence" do
-      @product = Product.new
-      @product.price_cents = nil # invalid state
-      @product.valid?
-      expect(@product.errors[:price_cents]).to  include("is not a number")
-
-      @product.price_cents = 12311 # valid state
-      @product.valid? 
-      expect(@product.errors[:price_cents]).not_to  include("can't be blank")
+    it 'fails to save when quantity is not set' do
+      subject.quantity = nil
+      subject.valid?
+      expect(subject.errors).not_to be_empty
     end
 
-    it "quantity" do
-      @product = Product.new
-      @product.quantity = nil # invalid state
-      @product.valid?
-      expect(@product.errors[:quantity]).to  include("can't be blank")
-
-      @product.quantity = 3 # valid state
-      @product.valid? 
-      expect(@product.errors[:quantity]).not_to  include("can't be blank")
+    it 'fails to save when category is not set' do
+      subject.category = nil
+      subject.valid?
+      expect(subject.errors).not_to be_empty
     end
 
-    it "has category_id" do
-      @cat = Category.new
-      @product = Product.new
-      @product.category = nil # invalid state
-      @product.valid?
-      expect(@product.errors[:category]).to  include("can't be blank")
 
-      @product.category = @cat # valid state
-      @product.valid? 
-      expect(@product.errors[:category]).not_to  include("can't be blank")
-    end
-  end
+  end  
 end
