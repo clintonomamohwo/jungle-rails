@@ -1,6 +1,33 @@
 # Jungle
 
 A mini e-commerce application built with Rails 4.2 for purposes of teaching Rails by example.
+## User Section
+
+### Landing Page
+
+Landing page, with an overview of all available products.
+
+!["landing page"](https://github.com/clintonomamohwo/jungle-rails/blob/master/app/assets/images/Products.png)
+
+## Product Details
+
+Displays details for a specific product.
+
+!["product Admin details"](https://github.com/clintonomamohwo/jungle-rails/blob/master/app/assets/images/Products-Admin.png)
+
+## Cart Page
+
+Cart page, displays Users selected items for checkout.
+
+!["cart page"](https://github.com/clintonomamohwo/jungle-rails/blob/master/app/assets/images/Cart.png)
+
+## Admin Categories Page
+
+Categories page for Admin, with an overview of the number categories.
+
+!["cart page"](https://github.com/clintonomamohwo/jungle-rails/blob/master/app/assets/images/Categories-Admin.png)
+
+
 
 ## Additional Steps for Apple M1 Machines
 
